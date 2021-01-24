@@ -1,3 +1,18 @@
+# PyTorch Template Light
+
+I'm working on some opinionated tweaks to [victoresque/pytorch-template](https://github.com/victoresque/pytorch-template) that reflect common changes with computer vision projects I've worked on or observed in the wild. Inspiration: [DVE](https://github.com/jamt9000/DVE), [collaborative-experts](https://github.com/albanie/collaborative-experts)
+
+- [x] Make [Dataset](https://pytorch.org/docs/stable/data.html#torch.utils.data.Dataset) the first class way to specify & implement a dataset instead of [DataLoader](https://pytorch.org/docs/stable/data.html#torch.utils.data.DataLoader)
+- [x] Allow lists and dicts of tensors to be used as network or loss input and moved to the GPU
+- [x] Comments and trailing commas in config files
+- [ ] Simplify class hierarchy, remove base folder
+- [ ] Be more clever when seeing if the input can be plotted as an image
+- [ ] Plot visualisations to tensorboard
+- [ ] Better support siamese/multimodal setting
+- [ ] Serialize the LR scheduler if it is stateful
+
+Original README follows
+
 # PyTorch Template Project
 PyTorch deep learning project made easy.
 
