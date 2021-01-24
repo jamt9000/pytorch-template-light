@@ -5,7 +5,7 @@ I'm working on some opinionated tweaks to [victoresque/pytorch-template](https:/
 - [x] Make [Dataset](https://pytorch.org/docs/stable/data.html#torch.utils.data.Dataset) the first class way to specify & implement a dataset instead of [DataLoader](https://pytorch.org/docs/stable/data.html#torch.utils.data.DataLoader)
 - [x] Allow lists and dicts of tensors to be used as network or loss input and moved to the GPU
 - [x] Comments and trailing commas in config files
-- [ ] Simplify class hierarchy, remove base folder
+- [x] Simplify class hierarchy, remove base folder
 - [ ] Be more clever when seeing if the input can be plotted as an image
 - [ ] Plot visualisations to tensorboard
 - [ ] Better support siamese/multimodal setting

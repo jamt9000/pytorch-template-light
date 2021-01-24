@@ -1,7 +1,7 @@
 import numpy as np
 import torch
 from torchvision.utils import make_grid
-from base import BaseTrainer
+from .base_trainer import BaseTrainer
 from utils import inf_loop, MetricTracker, move_to, is_image_like_batch
 
 
