@@ -10,6 +10,8 @@ I'm working on some opinionated tweaks to [victoresque/pytorch-template](https:/
 - [ ] Plot visualisations to tensorboard
 - [ ] Better support siamese/multimodal setting
 - [ ] Serialize the LR scheduler if it is stateful
+- [ ] Clear distinction between finetuning and resuming
+- [ ] Allow learning rate multiplier for the last fc layer
 
 Original README follows
 
