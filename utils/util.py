@@ -1,4 +1,5 @@
 import json
+import pyjson5
 import torch
 import pandas as pd
 from pathlib import Path
@@ -39,7 +40,7 @@ def ensure_dir(dirname):
 def read_json(fname):
     fname = Path(fname)
     with fname.open("rt") as handle:
-        return json.load(handle, object_hook=OrderedDict)
+        return pyjson5.load(handle, object_hook=OrderedDict)
 
 
 def write_json(content, fname):
