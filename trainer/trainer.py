@@ -26,6 +26,7 @@ class Trainer(BaseTrainer):
         self.do_validation = self.valid_data_loader is not None
         self.lr_scheduler = lr_scheduler
         self.log_step = int(np.sqrt(data_loader.batch_size))
+        self.loss_args = config.get('loss_args', {})
 
         self.train_metrics = MetricTracker('loss', *[m.__name__ for m in self.metric_ftns], writer=self.writer)
         self.valid_metrics = MetricTracker('loss', *[m.__name__ for m in self.metric_ftns], writer=self.writer)
@@ -45,7 +46,7 @@ class Trainer(BaseTrainer):
 
             self.optimizer.zero_grad()
             output = self.model(*data)
-            loss = self.criterion(output, meta)
+            loss = self.criterion(output, meta, **self.loss_args)
             loss.backward()
             self.optimizer.step()
 
@@ -89,7 +90,7 @@ class Trainer(BaseTrainer):
                 meta = move_to(meta, self.device)
 
                 output = self.model(*data)
-                loss = self.criterion(output, meta)
+                loss = self.criterion(output, meta, **self.loss_args)
 
                 self.writer.set_step((epoch - 1) * len(self.valid_data_loader) + batch_idx, 'valid')
                 self.valid_metrics.update('loss', loss.item())

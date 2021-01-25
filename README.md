@@ -6,6 +6,7 @@ I'm working on some opinionated tweaks to [victoresque/pytorch-template](https:/
 - [x] Allow lists and dicts of tensors to be used as network or loss input and moved to the GPU
 - [x] Comments and trailing commas in config files
 - [x] Simplify class hierarchy, remove base folder
+- [x] Supply args for the loss function in config
 - [ ] Be more clever when seeing if the input can be plotted as an image
 - [ ] Plot visualisations to tensorboard
 - [ ] Better support siamese/multimodal setting
