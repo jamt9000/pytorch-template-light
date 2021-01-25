@@ -8,6 +8,7 @@ I'm working on some opinionated tweaks to [victoresque/pytorch-template](https:/
 - [x] Simplify class hierarchy, remove base folder
 - [x] Supply args for the loss function in config
 - [x] Serialize the LR scheduler in case it is stateful
+- [x] Show Hz
 - [ ] Be more clever when seeing if the input can be plotted as an image
 - [ ] Plot visualisations to tensorboard
 - [ ] Better support siamese/multimodal setting
@@ -15,7 +16,6 @@ I'm working on some opinionated tweaks to [victoresque/pytorch-template](https:/
 - [ ] Allow learning rate multiplier for a reinitialised fc layer
 - [ ] Continue when the optimizer state dict has changed
 - [ ] Specify parameters to freeze
-- [ ] Show Hz
 
 Original README follows
 

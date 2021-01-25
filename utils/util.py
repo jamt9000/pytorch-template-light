@@ -31,6 +31,26 @@ def move_to(obj, device):
         raise TypeError("Invalid type for move_to")
 
 
+def extract_tensors(obj):
+    """ Get list of tensor objects from nested data structure """
+    tensors = []
+
+    def visit(obj):
+        if torch.is_tensor(obj):
+            tensors.append(obj)
+        elif isinstance(obj, dict):
+            for k, v in obj.items():
+                visit(v)
+        elif isinstance(obj, list):
+            for v in obj:
+                visit(v)
+        else:
+            raise TypeError("Invalid type for move_to")
+
+    visit(obj)
+    return tensors
+
+
 def ensure_dir(dirname):
     dirname = Path(dirname)
     if not dirname.is_dir():

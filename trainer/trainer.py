@@ -1,8 +1,9 @@
 import numpy as np
+import time
 import torch
 from torchvision.utils import make_grid
 from .base_trainer import BaseTrainer
-from utils import inf_loop, MetricTracker, move_to, is_image_like_batch
+from utils import inf_loop, MetricTracker, move_to, is_image_like_batch, extract_tensors
 
 
 class Trainer(BaseTrainer):
@@ -39,7 +40,11 @@ class Trainer(BaseTrainer):
         """
         self.model.train()
         self.train_metrics.reset()
+        batch_tic = time.time()
+
         for batch_idx, (*data, meta) in enumerate(self.data_loader):
+            batch_size = extract_tensors(data)[0].shape[0]
+
             data = move_to(data, self.device)
             meta = move_to(meta, self.device)
 
@@ -54,11 +59,16 @@ class Trainer(BaseTrainer):
             for met in self.metric_ftns:
                 self.train_metrics.update(met.__name__, met(output, meta))
 
+            toc = time.time() - batch_tic
+            hz = batch_size / toc
+            batch_tic = time.time()
+
             if batch_idx % self.log_step == 0:
-                self.logger.debug('Train Epoch: {} {} Loss: {:.6f}'.format(
+                self.logger.debug('Train Epoch: {} {} Loss: {:.6f} Speed: {:.2f}Hz'.format(
                     epoch,
                     self._progress(batch_idx),
-                    loss.item()))
+                    loss.item(),
+                    hz))
                 if is_image_like_batch(data):
                     self.writer.add_image('input', make_grid(data[0].cpu(), nrow=8, normalize=True))
 
