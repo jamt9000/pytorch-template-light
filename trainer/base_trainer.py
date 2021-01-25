@@ -175,26 +175,25 @@ class BaseTrainer:
             self.optimizer.load_state_dict(checkpoint["optimizer"])
 
         # load lr scheduler state from checkpoint when lr scheduler type is not changed
-        if self.lr_scheduler is not None:
-            old_scheduler = checkpoint["config"]["lr_scheduler"]["type"]
-            new_scheduer = self.config["lr_scheduler"]["type"]
-            if old_scheduler != new_scheduer:
-                self.logger.warning(
-                    "Warning: LRScheduler type %s in config is different %s in checkpoint. "
-                    "Reinitializing lr_scheduler with last_epoch=%d",
-                    new_scheduer,
-                    old_scheduler,
-                    checkpoint["epoch"] - 1,
-                )
-                # -1 for zero-based epoch indexing
-                self.lr_scheduler = self.config.init_obj(
-                    "lr_scheduler",
-                    torch.optim.lr_scheduler,
-                    self.optimizer,
-                    last_epoch=checkpoint["epoch"] - 1,
-                )
-            else:
-                self.lr_scheduler.load_state_dict(checkpoint["lr_scheduler"])
+        old_scheduler = checkpoint["config"]["lr_scheduler"]["type"]
+        new_scheduer = self.config["lr_scheduler"]["type"]
+        if old_scheduler != new_scheduer:
+            self.logger.warning(
+                "Warning: LRScheduler type %s in config is different %s in checkpoint. "
+                "Reinitializing lr_scheduler with last_epoch=%d",
+                new_scheduer,
+                old_scheduler,
+                checkpoint["epoch"] - 1,
+            )
+            # -1 for zero-based epoch indexing
+            self.lr_scheduler = self.config.init_obj(
+                "lr_scheduler",
+                torch.optim.lr_scheduler,
+                self.optimizer,
+                last_epoch=checkpoint["epoch"] - 1,
+            )
+        else:
+            self.lr_scheduler.load_state_dict(checkpoint["lr_scheduler"])
 
         self.logger.info(
             "Checkpoint loaded. Resume training from epoch {}".format(self.start_epoch)
